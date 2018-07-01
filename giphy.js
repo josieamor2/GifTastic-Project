@@ -1,7 +1,8 @@
 $(document).ready(function () {
-  var APIKey = "9Mc17b4OANxgodiNPHV46mrG1RLZit64";
+  // var APIKey = "9Mc17b4OANxgodiNPHV46mrG1RLZit64";
 
-  var signs = ["Cancer", "Scorpio", "Aquarius", "Picses", "Taurus"];
+  var signs = ["Cancer", "Scorpio", "Aquarius"];
+  
   function renderButtons() {
 
     // Deleting the movie buttons prior to adding new movie buttons
@@ -23,26 +24,52 @@ $(document).ready(function () {
 
     }
   }
+  
   $("#add-sign").on("click", function (event) {
     // event.preventDefault() prevents the form from trying to submit itself.
     // We're using a form so that the user can hit enter instead of clicking the button if they want
     event.preventDefault();
 
+
     // This line will grab the text from the input box
     var newSign = $("#sign-input").val().trim();
-    // The movie from the textbox is then added to our array
-    signs.push(newSign);
+    
+    if(newSign === "Aries" ||
+    newSign === "Taurus" ||
+    newSign === "Gemini" || 
+    newSign === "Libra" || 
+    newSign === "Leo" || 
+    newSign === "Virgo" || 
+    newSign === "Sagittarius" || 
+    newSign === "Capricorn" || 
+    newSign === "Pisces")
+  {
 
+    renderButtons();
+    signs.push(newSign);
+    newSign = $("#sign-input").val().trim();
+    
+   
 
     // calling renderButtons which handles the processing of our movie array
-    renderButtons();
-  });
+    
+    signsGifs();
+  }else{
+    alert("This is not a Horoscope Sign. Try again.");
+    $("#sign-input").val("");
+    
 
+  };
+    // The movie from the textbox is then added to our array
+    
+  
+  });
   // Calling the renderButtons function at least once to display the initial list of movies
   renderButtons();
+ 
 
-
-  $("button").on("click", function signsGif() {
+ function signsGifs(){
+  $("button").on("click", function () {
     // Grabbing and storing the data-animal property value from the button
     eachSign = $(this).attr("data-name");
 
@@ -111,6 +138,9 @@ $(document).ready(function () {
             $(this).attr("data-state", "still");
           }
         });
-      });
+      }); 
   });
+};
+
+signsGifs();
 });
